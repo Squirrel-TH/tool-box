@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from collections import OrderedDict
 
 
 class UseBeautifulSoup:
@@ -28,6 +29,11 @@ for element in elements:
     class_name = element.get_text(strip=True)
     computer_science_classes.append(class_name)
 
-df = pd.DataFrame(computer_science_classes)
+# remove duplicate
+unique_computer_science_classes = list(
+    OrderedDict.fromkeys(computer_science_classes)
+)
+
+df = pd.DataFrame(unique_computer_science_classes)
 csv_file_name = ''
 df.to_csv(csv_file_name, index=False, header=False)
